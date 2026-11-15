@@ -1,92 +1,52 @@
 ﻿Como usar Simulador SO
-
 1. DESCRIPCIÓN GENERAL
-
 Este programa simula la gestión de procesos y administración de memoria de un 
 Sistema Operativo bajo las siguientes políticas:
-
 - Administración de Memoria: Particiones Variables sin compactación 
 forzada global, utilizando el algoritmo de asignación Best-Fit.
-
 - Memoria Total: 550K (100K reservados para el Sistema Operativo + 450K disponibles para procesos de usuario).
-
 - Planificación de CPU: SRTF con expropiación.
-
 - Grado de Multiprogramación: Máximo 5 procesos activos simultáneamente en el 
   sistema (sumando Ejecutando + Listos + Listos/Suspendidos).
-
 - Límite de Lote: Máximo 10 procesos por ejecución.
-
-
-
 2. REQUISITOS PREVIOS
 - Tener instalado Python 3.6 o superior.
-
 - No requiere librerías externas (solo utiliza los módulos estándar `csv` y `os`).
-
-
-
-
 3. CÓMO EJECUTAR EL SIMULADOR
-
 A) En computadora local (Windows / Linux / Mac):
-   
-1. Guarda el archivo `simulador_so.py` y tus archivos de prueba (`.csv`) en la misma carpeta.
-   
+1. Guarda el archivo `simulador_so.py` y tus archivos de prueba (`.csv`) en la misma carpeta. 
 2. Abre una terminal o consola en esa carpeta.
-   
-3. Ejecuta el comando:
- python simulador_so.pyB
-
-). 
-
+3. Ejecuta el comando: python simulador_so.pyB
 4. FORMATO DE LOS ARCHIVOS CSV
 : el archivo debe ser de texto separado por comas (`.csv`) con una fila de 
 encabezado (que el programa ignora automáticamente) 
 y 4 columnas en este orden:
-
    Proceso,TA,TI,Tamano
    P1,0,8,120
    P2,2,4,90
    P3,4,2,150
-
  Donde:
-
 - Proceso : Identificador único del proceso (ej. P1, A, Proc1).
 - TA      : Tiempo de Arribo (entero >= 0).
 - TI: Tiempo de Irrupción o ráfaga de CPU (entero > 0).
-
 - Tamano  : Tamaño en Kilobytes que ocupa en memoria (entero entre 1 y 450).
-
 5. NAVEGACIÓN POR EL MENÚ
 Al iniciar verás tres opciones:
-
 1. Cargar procesos desde un archivo CSV: Te pedirá el nombre exacto del archivo (ejemplo: `lote1.csv`). Si el archivo está en una subcarpeta, indica la ruta 
 relativa (ejemplo: `lotes/lote1.csv`).
-
 2. Cargar procesos manualmente: Te permitirá ingresar hasta 10 procesos uno por uno por teclado. 
 Para finalizar la carga antes de llegar a 10, deja el ID vacío y presiona Enter.
- 
 3. Salir: Cierra el simulador.
-
-
-
-
 6. LECTURA DE PANTALLA DURANTE LA SIMULACIÓN: 
 El simulador avanza instante a instante (`t = 0, 1, 2...`), pero solo detiene 
 la ejecución y muestra la 
 pantalla cuando ocurre un evento significativo 
 (arribo, admisión, suspensión, expropiación o finalización). 
-
 En cada parada verás:
-
 - Eventos: Qué ocurrió exactamente en ese instante `t`.
 - Estado del procesador: Qué proceso tiene la CPU y cuánto tiempo le resta.
-
 - Tabla de particiones de memoria: Muestra el ID de partición, dirección de 
-  comienzo, tamaño, qué proceso la ocupa (o `(libre)`) y la fragmentación 
- 
-interna (siempre `0` en MVT porque la partición se ajusta al tamaño exacto).
+  comienzo, tamaño, qué proceso la ocupa (o `(libre)`) y la fragmentación  interna (siempre `0` en MVT porque la partición se ajusta al tamaño exacto).
 
 - Colas: Procesos en estado `Listo`, `Listo/Suspendido` y `Nuevos sin admitir`.
 
