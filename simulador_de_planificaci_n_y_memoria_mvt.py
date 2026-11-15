@@ -1,17 +1,15 @@
 import csv
 import os
 
-# ------------------------- Constantes del Sistema -------------------------
+#Constantes del Sistema
 MEM_SO = 100        # Memoria reservada para el Sistema Operativo (100K)
 MEM_USUARIO = 450   # Memoria disponible para procesos de usuario (450K)
 MAX_PROCESOS = 10   # Límite máximo de procesos admitidos por simulación
 MAX_MULTI = 5       # Grado máximo de multiprogramación (Ejecución + Listos + Listos/Suspendidos)
 
-
 def limpiar_pantalla():
     """Limpia la consola según el sistema operativo."""
     os.system("cls" if os.name == "nt" else "clear")
-
 
 def validar(id_proc, tam, llegada, irrup, procs):
     """Valida las restricciones de negocio y memoria para un proceso."""
@@ -24,8 +22,6 @@ def validar(id_proc, tam, llegada, irrup, procs):
     if len(procs) >= MAX_PROCESOS:
         return f"Máximo de {MAX_PROCESOS} procesos alcanzado."
     return ""
-
-
 def leer_archivo(nombre):
     """Lee un archivo CSV con columnas: Proceso, TA, TI, Tamaño (K)."""
     procs = []
@@ -59,7 +55,6 @@ def leer_archivo(nombre):
         print("[ERROR] No se pudo abrir el archivo. Verifica el nombre o la ruta.")
     return sorted(procs, key=lambda p: p["llegada"])
 
-
 def cargar_manual():
     """Permite el ingreso interactivo de procesos por teclado."""
     procs = []
@@ -91,14 +86,12 @@ def cargar_manual():
             })
     return sorted(procs, key=lambda p: p["llegada"])
 
-
 def crear_memoria():
     """Inicializa la memoria principal con la partición fija del SO y un bloque libre de usuario."""
     return [
         {"inicio": 0, "tam": MEM_SO, "proc": "SO"},
         {"inicio": MEM_SO, "tam": MEM_USUARIO, "proc": None}
     ]
-
 
 def asignar_best_fit(memoria, proc):
     """
@@ -123,7 +116,6 @@ def asignar_best_fit(memoria, proc):
     hueco["tam"], hueco["proc"] = proc["tam"], proc["id"]
     return True
 
-
 def liberar(memoria, id_proc):
     """Libera la partición ocupada por el proceso y compacta huecos libres adyacentes (coalescing)."""
     for p in memoria:
@@ -137,8 +129,7 @@ def liberar(memoria, id_proc):
             memoria.pop(i + 1)
         else:
             i += 1
-
-
+            
 def texto_cola(lista):
     """Formatea la visualización de una cola ordenada por tiempo restante (SRTF)."""
     if not lista:
@@ -152,7 +143,7 @@ def mostrar_estado(t, eventos, procs, memoria, en_cpu):
     print("=" * 62)
     print(f" INSTANTE t = {t}")
     print("=" * 62)
-
+    
     print("\nEventos:")
     for e in eventos:
         print(f"  - {e}")
@@ -183,7 +174,6 @@ def mostrar_estado(t, eventos, procs, memoria, en_cpu):
     for p in procs:
         print(f"  {p['id']:<6}{p['estado']:<19}{p['tam']:<8}{p['restante']}")
     print("=" * 62)
-
 
 def simular(procs):
     """Motor principal de simulación discreta tiempo a tiempo."""
@@ -292,7 +282,6 @@ def simular(procs):
     print("=" * 62)
     input("\nEnter para volver al menú...")
 
-
 def main():
     """Menú principal de la aplicación."""
     while True:
@@ -319,7 +308,6 @@ def main():
             input("\n[ERROR] Opción inválida. Enter para continuar...")
 
     print("\n¡Gracias por usar el simulador!")
-
 
 if __name__ == "__main__":
     main()
