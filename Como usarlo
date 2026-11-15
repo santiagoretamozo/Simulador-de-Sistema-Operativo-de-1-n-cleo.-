@@ -1,0 +1,13 @@
+El simulador solo acepta archivos de tipo .csv, los cuales cumplen con un formato de tabla especifico trabajado en los ejercicios 
+practicos de la catedra de SO.
+El usuario visualiza un menu por pantalla, para arrancar la simulacion debe ingresar '1' y dar enter.
+comenzara la simulacion tomando los datos de los procesos extraidos del archivo de prueba.
+La impresion por pantalla de datos, informes y calculos se da por eventos, es decir, cada vez que sucede algo significativo, como:
+el ingreso a memoria de una tarea, la liberacion de memoria, un proceso termina de ejecutarse, un proceso es expropiado por otro, 
+un proceso termina su ejecuion. 
+Cuando se dan estos eventos, se emite por pantalla resultados parciales y estados de memoria (asignaciones). 
+El usuario debe presionar enter para continuar con la simulacion, cada vez que se imprime por pantalla.
+
+Al finalizar, se emite por pantalla, datos sobre el rendimiento del simulador. 
+El usuario puede salir en cualquier momento, ingresando 'q' y enter.
+Ingresando '2' y enter vuelve al menu principal. 
