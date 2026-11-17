@@ -1,0 +1,28 @@
+name: Compilar Simulador a EXE
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Descargar código del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Instalar PyInstaller
+      run: pip install pyinstaller
+
+    - name: Compilar archivo a EXE
+      run: pyinstaller --onefile simulador_so.py
+
+    - name: Subir ejecutable como artefacto
+      uses: actions/upload-artifact@v4
+      with:
+        name: SimuladorSO-EXE
+        path: dist/simulador_so.exe
